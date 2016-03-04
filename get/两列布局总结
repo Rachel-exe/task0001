@@ -1,0 +1,50 @@
+#6.两列布局
+
+
+一共出现了三种情况
+html部分
+```
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+<div class="ll inline">左div</div>
+  <div class="lr inline">右div</div>
+</body>
+</html>
+```
+第一种：
+css部分
+```
+.inline{border: solid 1px;margin-top: 10px;}
+.ll{width:50px;height: 20px;position: absolute;background-color: red;}
+.lr{height:20px;margin-left: 50px;background-color: blue;}
+```
+给左div加上定位后，absolute脱离文档流，左div浮在了右div上面，左右两个div就相当于是在两个图层，因此他们看起来像并列，并非真正的并列。
+而右div由于设置了margin-left才会避开左div显示出来。
+
+第二种：
+css部分
+```
+.inline{border: solid 1px;}
+.ll{width:50px;height: 20px;background-color: red;}
+.lr{height:20px;margin-left: 50px;background-color: blue;position: absolute;}
+```
+这种情况的出现是因为div是块状元素本来就应该在两行，并且第二个div设置了margin-left所以在那个位置，absolute具有跟随性，当你不设置left，
+top，bottom，right属性时，其处在原来常规文档流的位置
+
+第三种：
+css部分
+```
+.inline{display:inline-block;border: solid 1px;}
+.ll{width:50px;height: 20px;background-color: red;position:abusolute;}
+.lr{height:20px;margin-left: 50px;background-color: blue;}
+```
+这种情况因为给两个div都设置了display，使他们都成为行内元素（内联元素），所以绝对定位没作用，并且右div根据前一个元素来定位
+P.s.设置了绝对定位的Div，其宽度会有包裹性，其宽度会自适应于内容，没设置定位和宽度的div，其宽度会自适应于屏幕宽度。
+
+[更全面的绝对定位描述](http://www.w3help.org/zh-cn/kb/012/)
